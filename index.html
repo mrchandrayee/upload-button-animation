@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Upload Button Animation Lab</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="heading"><h1>Upload Button</h1><h2>Animation</h2></header>
+<main>
+<section class="demo">
+<div class="examples">
+<div class="example primary-example">
+<button class="upload-btn liquid purple" data-upload="purple"><span class="label">Upload</span><span class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></span><span class="liquid"><i></i></span></button>
+<div class="meta" data-meta="purple"></div>
+</div>
+<div class="example square-example">
+<button class="upload-btn square dark" data-upload="square"><svg viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg><span class="liquid"><i></i></span></button><div class="meta" data-meta="square"></div>
+</div>
+<div class="example icon-example">
+<button class="upload-btn square white" data-upload="icon"><svg viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg><span class="liquid"><i></i></span></button><div class="meta" data-meta="icon"></div>
+</div>
+<div class="example wide-example">
+<button class="upload-btn liquid wide dark" data-upload="wide"><span class="label">Upload</span><span class="icon-cell"><svg viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></span><span class="liquid"><i></i></span></button><div class="meta" data-meta="wide"></div>
+</div>
+</div>
+<div class="file-row"><label class="choose" for="fileInput">Choose a file</label><input id="fileInput" type="file"><span id="fileName">No file selected · Try any file</span><button id="reset">Reset demos</button></div>
+<p class="hint">Choose a file, then click any button. Each design runs its own upload animation.</p>
+</section>
+<div class="credit"><span>@</span> _code_and_chill_</div>
+<section class="source">
+<article><h3><i class="html-dot"></i> index.html</h3><pre><code>&lt;!-- Two legs on one hinge:
+     the first is the float.
+     one viewBox joins at the
+     apex as a single path. --&gt;
+&lt;span class="keel__well"&gt;
+  &lt;span class="keel__liquid"&gt;&lt;/span&gt;
+  &lt;svg viewBox="0 0 60 60"&gt;
+    &lt;g class="keel__head"&gt;
+      &lt;line class="keel__leg--l"
+        x1="30" y1="21.3"
+        x2="25.5" y2="27.5"/&gt;
+      &lt;line class="keel__leg--r"
+        x1="30" y1="21.3"
+        x2="34.4" y2="27.5"/&gt;
+    &lt;/g&gt;
+    &lt;path class="keel__float"
+      x1="30" y1="36.9"
+      x2="30" y2="23.1"/&gt;
+  &lt;/svg&gt;
+&lt;/span&gt;</code></pre></article>
+<article><h3><i class="css-dot"></i> app.css</h3><pre><code>/* The dome is free: one box with a
+   100% width and no top corners.
+   Both walls are one arc that touches
+   both walls. */
+.keel__liquid {
+  height: 125%;
+  border-radius: 50% 50% 0 0 /
+               18.4% 18.4% 0 0;
+  transform: translateY(
+    calc(var(--p) * .385 -
+         var(--p) * 60px)
+  );
+}
+/* The float rides the apex — the same
+   term; nothing keeps them in step. */
+.keel__float {
+  transform:
+    translateY(calc((var(--p) * .385
+      - var(--p)) * 60px))
+    scaleY(calc(1 - .4 * var(--p)));
+}</code></pre></article>
+<article><h3><i class="js-dot"></i> app.js</h3><pre><code>// no requestAnimationFrame anywhere:
+// — and —p are REGISTERED numbers
+// with transitions, so one write is
+// a whole beat.
+setP(v) {
+  this.root.style
+    .setProperty('--p', v.toFixed(4));
+}
+// The pacing floor — the entire
+// honesty policy in one line.
+for await (const { loaded, total }
+    of readBlob(blob)) {
+  const ceiling = clamp01(
+    (now() - t0) / runMin
+  );
+  const shown = Math.min(
+    loaded / total, ceiling, 1
+  );
+  this.p = shown;
+}
+// Real bytes, slice by slice:
+// Blob's own stream hands 2.4 MB
+// back in THREE pieces.
+await blob.slice(at, at + CHUNK)
+  .arrayBuffer();</code></pre></article>
+</section>
+</main>
+<script src="app.js"></script></body></html>
